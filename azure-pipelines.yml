@@ -58,12 +58,11 @@ steps:
   displayName: 'Publish Artifact: drop'
   condition: succeeded()
 
-- task: PublishPipelineArtifact@1
-  displayName: 'Publish'
+
+- task: NuGetCommand@2
+  displayName: 'Publish NuGet package'
   inputs:
-    targetPath: $(Build.ArtifactStagingDirectory)/**
-    ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
-        artifactName: 'prod'
-    ${{ else }}:
-        artifactName: 'dev'
-    artifactType: 'pipeline'
+    command: push
+    feedPublish: '$(System.TeamProject)/Tailspin.SpaceGame.Web.Models'
+    allowPackageConflicts: true
+  condition: succeeded()
