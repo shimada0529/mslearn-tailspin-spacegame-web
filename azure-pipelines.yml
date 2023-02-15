@@ -58,3 +58,12 @@ steps:
   displayName: 'Publish Artifact: drop'
   condition: succeeded()
 
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish'
+  inputs:
+    targetPath: $(Build.ArtifactStagingDirectory)/**
+    ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+        artifactName: 'prod'
+    ${{ else }}:
+        artifactName: 'dev'
+    artifactType: 'pipeline'
