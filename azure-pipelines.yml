@@ -82,3 +82,8 @@ steps:
     feedPublish: '$(System.TeamProject)/Tailspin.SpaceGame.Web.Models'
     allowPackageConflicts: true
   condition: succeeded()
+
+# Publish Pipeline Metadata v0
+# Publish Pipeline Metadata to Evidence store.
+- task: PublishPipelineMetadata@0
+  inputs: # none
